@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd     http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <cxf:rsServer address="http://localhost:9000/employeeservice"
+        id="restService" serviceClass="org.mycompany.EmployeeServiceResource"/>
+    <bean class="org.mycompany.processor.MyProcessor" id="processor"/>
+    <camelContext id="camelId" xmlns="http://camel.apache.org/schema/spring">
+        <route id="_route2">
+            <from id="_from1" uri="cxfrs://bean://restService"/>
+            <process id="_process1" ref="processor"/>
+        </route>
+    </camelContext>
+    <bean
+        class="org.apache.camel.routepolicy.quartz.CronScheduledRoutePolicy" id="startPolicy">
+        <property name="routeStartTime" value="*/3 * * * * ?"/>
+    </bean>
+    <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" id="jsonProvider"/>
+    <bean class="org.apache.cxf.jaxrs.client.WebClient"
+        factory-method="create" id="jsonWebClient">
+        <constructor-arg type="java.lang.String" value="http://localhost:9000/"/>
+        <constructor-arg>
+            <list>
+                <ref bean="jsonProvider"/>
+            </list>
+        </constructor-arg>
+    </bean>
+</beans>
