@@ -3,7 +3,7 @@
     xmlns:cxf="http://camel.apache.org/schema/cxf"
     xmlns:jaxrs="http://cxf.apache.org/jaxrs"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd     http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
-    <cxf:rsServer address="http://localhost:9000/employeeservice"
+    <cxf:rsServer address="http://localhost:8080/employeeservice"
         id="restService" serviceClass="org.mycompany.EmployeeServiceResource"/>
     <bean class="org.mycompany.processor.MyProcessor" id="processor"/>
     <camelContext id="camelId" xmlns="http://camel.apache.org/schema/spring">
