@@ -19,7 +19,7 @@
     <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" id="jsonProvider"/>
     <bean class="org.apache.cxf.jaxrs.client.WebClient"
         factory-method="create" id="jsonWebClient">
-        <constructor-arg type="java.lang.String" value="http://localhost:9000/"/>
+        <constructor-arg type="java.lang.String" value="http://localhost:8080/"/>
         <constructor-arg>
             <list>
                 <ref bean="jsonProvider"/>
